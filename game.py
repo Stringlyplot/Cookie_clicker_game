@@ -19,9 +19,20 @@ while running:
             running = False
     # Game window color of the pop up game/tab
     screen.fill((0, 100, 100))
+    #game loop speed into 60 frames per sec
+    clock = pygame.time.Clock()
+    clock.tick(60)
+
+    # Load the cookie image and set its size
+    cookie_image = pygame.image.load("cookie.png")
+    cookie_size = (100, 100)  # Width and height in pixels
+    cookie_image = pygame.transform.scale(cookie_image, cookie_size)
+
+    # Set the initial position of the cookie
+    cookie_x = 250  # Center horizontally (adjust based on window size)
+    cookie_y = 150  # Center vertically (adjust based on window size)
+        # Draw the cookie on the screen
+    screen.blit(cookie_image, (cookie_x, cookie_y))
     #update display
     pygame.display.flip()
 pygame.quit()
-
-clock = pygame.time.Clock()
-clock.tick(60)
