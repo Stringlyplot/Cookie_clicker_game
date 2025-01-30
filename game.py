@@ -24,6 +24,11 @@ cookie_y = 150  # Center vertically
 font = pygame.font.SysFont("Arial", 30)  # Font name and size
 score = 0 #give the score a value to begin with
 
+#Upgrade button location and dimension
+button_x = 400
+button_y = 300
+button_width = 150
+button_height = 50
 
 
 running = True
