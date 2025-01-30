@@ -72,8 +72,8 @@ while running:
     screen.blit(score_text, (10, 10))  # Display at the top-left corner
     #drawing ugrade button  This is the color
     pygame.draw.rect(screen, (0, 200, 0), (button_x, button_y, button_width, button_height))
-    button_text = font.render("Upgrade", True (255, 255, 255))
-    screen.blit(button_text, (button_x, + 20, button_y + 10))
+    button_text = font.render("Upgrade", True, (255, 255, 255))
+    screen.blit(button_text, (button_x + 20, button_y + 10))
 
     
     #update display
