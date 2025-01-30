@@ -9,6 +9,9 @@ WINDOW_HEIGHT = 400
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 #Window caption
 pygame.display.set_caption("Cookie Clicker")
+#game loop speed into 60 frames per sec
+clock = pygame.time.Clock()
+
 
 
 # Load the cookie image and set its size
@@ -29,6 +32,14 @@ button_x = 400
 button_y = 300
 button_width = 150
 button_height = 50
+
+#timer setup for auto-incremnting cookies
+clock = pygame.time.Clock()
+AUTO_INCREMENT_INTERVAL = 1000
+last_auto_increment = pygame.time.get_ticks()
+
+
+
 
 
 running = True
@@ -51,8 +62,6 @@ while running:
                 running = False
     # Game window color of the pop up game/tab
     screen.fill((0, 100, 100))
-    #game loop speed into 60 frames per sec
-    clock = pygame.time.Clock()
     clock.tick(60)
 
 
@@ -61,8 +70,10 @@ while running:
     # Render the score text
     score_text = font.render(f"Score: {score}", True, (255, 255, 255))  # Black color
     screen.blit(score_text, (10, 10))  # Display at the top-left corner
-
-
+    #drawing ugrade button  This is the color
+    pygame.draw.rect(screen, (0, 200, 0), (button_x, button_y, button_width, button_height))
+    button_text = font.render("Upgrade", True (255, 255, 255))
+    screen.blit(button_text, (button_x, + 20, button_y + 10))
 
     
     #update display
