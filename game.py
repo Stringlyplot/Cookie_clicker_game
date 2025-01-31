@@ -48,7 +48,7 @@ num_upgrades = 0
 fade_effects = []
 
 #The initial variable for our animation
-cookie_bounce = {"scale": 1.0, "direction": 1}
+cookie_bounce = {"scale": .9, "direction": 1}
 
 
 running = True
@@ -85,7 +85,7 @@ while running:
     clock.tick(60)
 
     # Draw the cookie on the screen
-    screen.blit(cookie_image, (cookie_x, cookie_y))
+
     # Render the score text
     score_text = font.render(f"Score: {score}", True, (50, 50, 120))  # Black color
     screen.blit(score_text, (10, 10))  # Display at the top-left corner
@@ -133,8 +133,17 @@ while running:
     elif cookie_bounce["scale"] >= 1.0:
         cookie_bounce["direction"] = 0  # Stop bouncing
 
-    scaled_cookie = pygame.transform.scale(cookie_image, (int(cookie_size[0] * cookie_bounce["scale"]), int(cookie_size[1] * cookie_bounce["scale"])))
-    screen.blit(scaled_cookie, (cookie_x, cookie_y))
+        # Scale the cookie image
+    scaled_width = int(cookie_size[0] * cookie_bounce["scale"])
+    scaled_height = int(cookie_size[1] * cookie_bounce["scale"])
+    scaled_cookie = pygame.transform.scale(cookie_image, (scaled_width, scaled_height))
+
+    # Center the cookie while it scales
+    scaled_x = cookie_x + (cookie_size[0] - scaled_width) // 2
+    scaled_y = cookie_y + (cookie_size[1] - scaled_height) // 2
+
+    # Draw only the scaled cookie
+    screen.blit(scaled_cookie, (scaled_x, scaled_y))
 
     
     #update display
