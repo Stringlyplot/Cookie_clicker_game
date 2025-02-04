@@ -51,6 +51,9 @@ fade_effects = []
 #The initial variable for our animation
 cookie_bounce = {"scale": .9, "direction": 1}
 
+cookie_click_color = False
+cookie_click_timer = 0
+
 
 running = True
 #loop to keep game window open as long as running = true
@@ -62,6 +65,7 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
+            
 
                     # Check if the click is on the cookie
             if (cookie_x <= mouse_x <= cookie_x + cookie_size[0] and
@@ -71,6 +75,9 @@ while running:
                 cookie_y = random.randint(0, WINDOW_HEIGHT - cookie_size[1])
                 cookie_bounce["direction"] = -1 #Shrinks the cookie
                 fade_effects.append({"x": mouse_x, "y": mouse_y, "radius": 10, "alpha": 255})  # Start a fade effect
+
+                cookie_click_color = True #Activates the color cahnge
+                cookie_click_timer = pygame.time.get_ticks() # Gets the time of color change
 
 
             elif (button_x <= mouse_x <= button_x + button_width and button_y <= mouse_y <= button_y + button_height):
@@ -86,6 +93,15 @@ while running:
     # background color for window color of the pop up game/tab
     screen.fill((194, 180, 78))
     clock.tick(60)
+
+    #Checks if the cookie click color is True
+    if cookie_click_color:
+        screen.fill((120,0,100))
+    #Checks if 200ms has passed yet
+    if cookie_click_color and pygame.time.get_ticks() - cookie_click_timer >= 200:
+        cookie_click_color = False
+    
+    
 
     # Draw the cookie on the screen
 
@@ -106,28 +122,18 @@ while running:
     #Increases the cost of the upgrade button everytime its clicked
     upgrade_cost = int(50 * (1.2 ** num_upgrades))
 
+
     #diplay cookies per second automatic
     cps_text = font.render(f"Cookies/sec: {cookies_per_second}", True, (80,20,100))
     screen.blit(cps_text, (205, 50))
 
-    current_time = pygame.time.get_ticks()
 
+    current_time = pygame.time.get_ticks()
+    # Increases the automatic score for cookie when you click upgrade
     if current_time - last_auto_increment >= AUTO_INCREMENT_INTERVAL:
         score += cookies_per_second
         last_auto_increment = current_time
         
-    #white little effect on the cookie
-    for effect in fade_effects[:]:
-        # Draw the fading circle
-        surface = pygame.Surface((400, 400), pygame.SRCALPHA)  # Transparent surface
-        pygame.draw.circle(surface, (255, 255, 255, effect["alpha"]), (effect["x"], effect["y"]), effect["radius"])
-        screen.blit(surface, (0, 0))
-
-    # Update effect properties
-        effect["radius"] += 2
-        effect["alpha"] -= 10
-        if effect["alpha"] <= 0:
-            fade_effects.remove(effect)  # Remove when completely faded
 
     if cookie_bounce["direction"] != 0:
         cookie_bounce["scale"] += 0.05 * cookie_bounce["direction"]
@@ -147,6 +153,19 @@ while running:
 
     # Draw only the scaled cookie
     screen.blit(scaled_cookie, (scaled_x, scaled_y))
+
+
+        #white little effect on the cookie
+    for effect in fade_effects[:]:
+        # Draw the fading circle
+        surface = pygame.Surface((400, 400), pygame.SRCALPHA)  # Transparent surface
+        pygame.draw.circle(surface, (255, 255, 255, effect["alpha"]), (effect["x"], effect["y"]), effect["radius"])
+        screen.blit(surface, (0, 0))
+    # Update effect properties
+        effect["radius"] += 2
+        effect["alpha"] -= 10
+        if effect["alpha"] <= 0:
+            fade_effects.remove(effect)  # Remove when completely faded
 
     
     #update display
