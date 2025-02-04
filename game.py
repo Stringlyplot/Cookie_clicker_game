@@ -19,6 +19,13 @@ clock = pygame.time.Clock()
 cookie_image = pygame.image.load("cookie.png")
 cookie_size = (200, 200)  # Width and height in pixels
 cookie_image = pygame.transform.scale(cookie_image, cookie_size)
+cookie_image_normal = pygame.image.load("cookie.png")
+cookie_image_clicked = pygame.image.load("cookie_click.png")
+cookie_image_normal = pygame.transform.scale(cookie_image_normal, cookie_size)
+cookie_image_clicked = pygame.transform.scale(cookie_image_clicked, cookie_size)
+
+# Start with normal image
+cookie_image = cookie_image_normal
 
 #initial cookie position
 cookie_x = 200  # Center horizontally 
@@ -96,14 +103,14 @@ while running:
 
     #Checks if the cookie click color is True
     if cookie_click_color:
-        screen.fill((120,0,100))
+        cookie_image = cookie_image_clicked
     #Checks if 200ms has passed yet
     if cookie_click_color and pygame.time.get_ticks() - cookie_click_timer >= 200:
+        cookie_image = cookie_image_normal
         cookie_click_color = False
     
     
 
-    # Draw the cookie on the screen
 
     # Render the score text
     score_text = font.render(f"Score: {score}", True, (50, 50, 120))  # Black color
