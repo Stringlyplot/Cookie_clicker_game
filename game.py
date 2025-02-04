@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 #widon dimensions
@@ -66,6 +67,8 @@ while running:
             if (cookie_x <= mouse_x <= cookie_x + cookie_size[0] and
                     cookie_y <= mouse_y <= cookie_y + cookie_size[1]):
                 score += 1  # Increment the score
+                cookie_x = random.randint(0, WINDOW_WIDTH - cookie_size[0])
+                cookie_y = random.randint(0, WINDOW_HEIGHT - cookie_size[1])
                 cookie_bounce["direction"] = -1 #Shrinks the cookie
                 fade_effects.append({"x": mouse_x, "y": mouse_y, "radius": 10, "alpha": 255})  # Start a fade effect
 
