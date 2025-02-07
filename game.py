@@ -60,7 +60,9 @@ cookie_bounce = {"scale": .9, "direction": 1}
 
 cookie_click_color = False
 cookie_click_timer = 0
-
+# Code for the audio implemented for both click and background sounds
+pygame.mixer.init()
+click_sound = pygame.mixer.Sound("click.mp3")
 
 running = True
 #loop to keep game window open as long as running = true
@@ -85,6 +87,7 @@ while running:
 
                 cookie_click_color = True #Activates the color cahnge
                 cookie_click_timer = pygame.time.get_ticks() # Gets the time of color change
+                click_sound.play()
 
 
             elif (button_x <= mouse_x <= button_x + button_width and button_y <= mouse_y <= button_y + button_height):
