@@ -7,7 +7,9 @@ WINDOW_WIDTH = 600
 WINDOW_HEIGHT = 400
 
 #Creates game window
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+#Makes it start not in full screen
+fullscreen = False
 #Window caption
 pygame.display.set_caption("Cookie Clicker")
 #game loop speed into 60 frames per sec
@@ -98,6 +100,15 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key ==pygame.K_ESCAPE:
                 running = False
+                #Checks if it clicks the f11 key
+            elif event.key == pygame.K_F11:
+                #THe not symbol basically when fullscreen not true not fulscreen is true
+                fullscreen = not fullscreen
+                if fullscreen:
+                    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+                else:
+                    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+
 
 
     # background color for window color of the pop up game/tab
